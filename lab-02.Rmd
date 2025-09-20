@@ -29,6 +29,7 @@ plastic_waste <- plastic_waste %>%
 ```{r plastic-waste-continent}
 ggplot(plastic_waste, aes(x= plastic_waste_per_cap, ))+ geom_histogram(binwidth =0.2) + facet_wrap(~continent)
 ```
+Question: Que pouvez vous dire de la comparaison des continents, en terme de dechets plastique? Tout d'abord, en Afrique la majorité des pays se situent proche de 0. Contrairement à l'Asie, L'Europe et l'Amerique du Nord, l'Oceanie, l'Amerique du Sud la plus part des pays se situent entre 0,10 et 0,25 kg de dechets par jour. De plus en Amerique du Nord, il y a plus de pays qui ont plus que 0,50 kg de dechets par jour. En Conclusion, les 3 continents qui produissent le plus de dechets plastiques sont :l'Europe, l'Amerique du Nord et l'Asie.
 
 ### Exercise 2
 
@@ -37,8 +38,8 @@ ggplot(plastic_waste, aes(x= plastic_waste_per_cap, ))+ geom_histogram(binwidth 
 library(ggplot2)
 ggplot(plastic_waste, aes(x=plastic_waste_per_cap, fill = continent, color=continent)) + geom_density(ajust=2, alpha=0.5)
 ```
-
-Réponse à la question...
+Question: Decrivez pourquoi le reglage de la couleur et le reglage de la transparence ne se trouvent pas au meme endroit ?
+Tout d'abord,le reglage de la couleur va directement dans ka fonction aes() car celle ci determine la proprité en fonction d'une propriété de donnée donc d'une variable.Ce qui veux dire que chaque continent aura une coulur differente. Tandis qu'alpha est dans la fonction geom() car celui ci permet de fixer une propriété qui ne va pas dependre d'une variable dans les données. Ce qui signifie que c'est un reglage qui va etre fixe pour tout le graphique.Ici la transparence va etre la meme pour tout le graphique.
 
 ### Exercise 3
 
@@ -53,8 +54,7 @@ Violin plot:
 ```{r plastic-waste-violin}
 ggplot(plastic_waste, aes(x=continent, y=plastic_waste_per_cap))+ geom_violin()
 ```
-
-Réponse à la question...
+Question: Qu'est ce que les violin plots permettent de voir sur les données que les boxplot ne permettent pas? La principale difference est que les violin plots sont plus visuels, ils ont une forme particulières en fonction de la distributions de dechets par continent et habitant. Donc ca nous permet de visualisé la distribution des données détaillé.
 
 ### Exercise 4
 
@@ -63,22 +63,24 @@ Réponse à la question...
 library(ggplot2)
 ggplot(plastic_waste, aes(x=plastic_waste_per_cap, y=mismanaged_plastic_waste_per_cap, color=continent)) + geom_point()
 ```
+Question: Voyez vous une tendance ?
+On peut voir une tendance croissante. On apercois que plus il y a de dechets par habitantS plus la quantité de plastique non générés en tonne est elévee. Ce qui est coherent. 
 
 
 ### Exercise 5
 
 
 ```{r plastic-waste-population-total}
-ggplot(plastic_waste, aes(x=plastic_waste_per_cap, y=total_pop))+ geom_point()
+ggplot(plastic_waste, aes(x=total_pop, y=plastic_waste_per_cap))+ geom_point()
 
 
 ```
 
 ```{r plastic-waste-population-coastal}
-ggplot(plastic_waste, aes(x=plastic_waste_per_cap, y=coastal_pop)) +geom_point()
+ggplot(plastic_waste, aes(x=coastal_pop, y=plastic_waste_per_cap)) +geom_point()
 ```
-
-Réponse à la question...
+Question: Est-ce qu'il semble y avoir une relation plus forte pour l'une des paires de variables ?
+Oui il y a une légére variable plus forte avec le nombre de personnes vivant sur les cotes et de plus le nombre de dechets est plus variable. Mais c'est relativement les memes. 
 
 ## Conclusion
 
@@ -91,8 +93,10 @@ plastic_waste_coastal <- plastic_waste  %>%
   filter(plastic_waste_per_cap < 3)
 
 ggplot(plastic_waste_coastal, aes(x=coastal_pop_prop,  y=plastic_waste_per_cap, color=continent))+ 
-geom_point() +  stat_smooth(aes(group = 1), color="BLACK")
+geom_point() +  stat_smooth(aes(group = 1), color="BLACK") +
 labs(x= "Proportions de la population cotiere (Coastal/Total population)", y="Nombre de dechets de plastiques par habitant", title="Quantité de déchets plastiques vs Proportion de la population cotière",subtitle="Selon le continent")
 
 
 ```
+Question: Interpretez ce que vous observez. 
+Nous pouvons voir que plus la proportions de la population cotiere est élevée plus le nombre de dechets plastique va etre augmenté. Cependant avec la ligne, nous pouvons apercevoir que ce n'est pas forcement proportionelle, car depassé un seuil de 1 le nombre de dechets commence petit a petit a se stabiliser. 
